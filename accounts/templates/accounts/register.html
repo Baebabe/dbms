@@ -1,0 +1,28 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-[70vh]">
+    <div class="w-full max-w-md p-8 bg-white rounded shadow-md">
+        <h1 class="mb-6 text-2xl font-semibold text-center text-blue-800">Create Your Account</h1>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <p class="text-sm text-red-500">{{ field.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="w-full py-2 font-semibold text-white transition bg-blue-600 rounded-lg hover:bg-blue-700">Register</button>
+        </form>
+        <p class="mt-4 text-sm text-center text-gray-500">
+            Already have an account? <a href="{% url 'login' %}" class="font-medium text-blue-600 hover:text-blue-800">Log in</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
